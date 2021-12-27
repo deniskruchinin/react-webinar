@@ -20,8 +20,17 @@ class CategoryStore extends StoreModule {
     const jsonCategory = await responseCategory.json();
 
     function rec(data, initId, acc, count) {
+      const dataSort = data.sort((a, b) => {
+          const current = a.title.toLowerCase(), prev = b.title.toLowerCase()
+          if (current > prev)
+            return -1
+          if (current < prev)
+            return 1
+          return 0
+        }
+      )
       count += 1
-      data.map((item) => {
+      dataSort.map((item) => {
         if (item.parent?._id === initId || item.parent === initId) {
           let nesting = ''
           for (let i = 0; i < count; i++) {
@@ -34,10 +43,10 @@ class CategoryStore extends StoreModule {
       return acc;
     }
 
-    const category = rec(jsonCategory.result.items, null, [{title: 'все', value:''}], -1)
+    const category = rec(jsonCategory.result.items, null, [{title: 'все', value: ''}], -1)
 
     this.setState({
-      category:category
+      category: category
     });
 
   }
