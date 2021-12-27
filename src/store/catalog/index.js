@@ -26,7 +26,8 @@ class CatalogStore extends StoreModule {
         page: 1,
         limit: 10,
         sort: 'key',
-        query: ''
+        query: '',
+        category: ""
       },
       waiting: true
     };
@@ -38,7 +39,7 @@ class CatalogStore extends StoreModule {
    * @param params
    * @return {Promise<void>}
    */
-  async initParams(params = {}){
+  async initParams(params = {}) {
     // Параметры из URl. Их нужно валидирвать, приводить типы и брать толкьо нужные
     const urlParams = qs.parse(window.location.search, QS_OPTIONS.parse) || {}
     let validParams = {};
@@ -46,6 +47,7 @@ class CatalogStore extends StoreModule {
     if (urlParams.limit) validParams.limit = Number(urlParams.limit) || 10;
     if (urlParams.sort) validParams.sort = urlParams.sort;
     if (urlParams.query) validParams.query = urlParams.query;
+    if (urlParams.category) validParams.category = urlParams.category;
 
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...validParams, ...params};
@@ -58,17 +60,22 @@ class CatalogStore extends StoreModule {
    * @param params
    * @return {Promise<void>}
    */
-  async resetParams(params = {}){
+  async resetParams(params = {}) {
     // Итоговые параметры из начальных, из URL и из переданных явно
     const newParams = {...this.initState().params, ...params};
     // Установк параметров и подгрузка данных
     await this.setParams(newParams);
   }
 
+  // async setParams(params = {}, historyReplace = false) {
+  //
+  // }
+
+
   /**
    * Загрузка списка товаров
    */
-  async setParams(params = {}, historyReplace = false){
+  async setParams(params = {}, historyReplace = false) {
     const newParams = {...this.getState().params, ...params};
 
     this.setState({
@@ -77,10 +84,16 @@ class CatalogStore extends StoreModule {
       waiting: true
     });
 
+    //${`${newParams.category && "&search[category]="}${newParams.category && newParams.category}`}
     const skip = (newParams.page - 1) * newParams.limit;
-    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}`);
+    let category = ''
+    if (newParams.category) {
+      category = `&search[category]=${newParams.category}`
+    }
+    const response = await fetch(`/api/v1/articles?limit=${newParams.limit}&skip=${skip}&fields=items(*),count&sort=${newParams.sort}&search[query]=${newParams.query}${category}`);
     const json = await response.json();
 
+// Пример:
     this.setState({
       ...this.getState(),
       items: json.result.items,
