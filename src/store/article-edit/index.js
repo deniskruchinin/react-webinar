@@ -2,10 +2,6 @@ import StoreModule from "../module";
 
 class ArticleEditStore extends StoreModule {
 
-  export
-  default
-  ArticleEditStore;
-
   /**
    * Начальное состояние
    */
@@ -30,15 +26,9 @@ class ArticleEditStore extends StoreModule {
     try {
       const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
       const json = await response.json();
-      const responseCountries = await fetch(` api/v1/countries?limit=*&fields=_id,title,code&sort=title.ru`);
-      const jsonCountry = await responseCountries.json();
 
-      const countries = jsonCountry.result.items.map((item) => {
-        return {title: item.title, value: item._id}
-      })
       if (json.error) throw new Error(json.error);
       this.updateState({
-        countries: countries,
         data: json.result,
         header: json.result.title,
         waiting: false
@@ -80,14 +70,9 @@ class ArticleEditStore extends StoreModule {
   }
 
   changeArticle(editArticle) {
-
-
     this.updateState({
       data: {...editArticle},
-      waiting: false
     });
   }
-
 }
-
 export default ArticleEditStore;

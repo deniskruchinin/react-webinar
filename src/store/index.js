@@ -98,6 +98,12 @@ class Store {
   get articleEdit(){
     return this.get('articleEdit');
   }
+  /**
+   * @return {Countries}
+   */
+  get countries(){
+    return this.get('countries');
+  }
 }
 
 export default Store;

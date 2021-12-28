@@ -18,15 +18,17 @@ function ArticleEdit() {
   useInit(async () => {
     await store.articleEdit.load(params.id);
     await store.category.loadCategory();
+    await store.countries.loadCountries();
+
   }, [params.id]);
 
   const select = useSelector(state => ({
     article: state.articleEdit.data,
     waiting: state.articleEdit.waiting,
-    countries:state.articleEdit.countries,
-    category:state.category.category.filter((item)=>item.value!==''),
-    header:state.articleEdit.header,
-    error:state.articleEdit.error
+    countries: state.countries.countries,
+    category: state.category.category.filter((item) => item.value !== ''),
+    header: state.articleEdit.header,
+    error: state.articleEdit.error
   }));
   const callbacks = {
     changeArticle: useCallback((article) => store.articleEdit.changeArticle(article), [store]),
@@ -36,7 +38,12 @@ function ArticleEdit() {
     <Layout head={<h1>{select?.header}</h1>}>
       <Header/>
       <Spinner active={select.waiting}>
-        <ArticleEditCard error={select.error} sendArticle={callbacks.sendArticle}  category = {select.category}  article={select.article} countries = {select.countries} changeArticle={callbacks.changeArticle}/>
+        <ArticleEditCard error={select.error}
+                         sendArticle={callbacks.sendArticle}
+                         category={select.category}
+                         article={select.article}
+                         countries={select.countries}
+                         changeArticle={callbacks.changeArticle}/>
       </Spinner>
     </Layout>
   );

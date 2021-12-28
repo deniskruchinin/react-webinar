@@ -4,3 +4,4 @@ export { default as modals } from './modals';
 export { default as article } from './article';
 export { default as articleEdit } from './article-edit'
 export { default as category } from './category';
+export { default as countries } from './countries';

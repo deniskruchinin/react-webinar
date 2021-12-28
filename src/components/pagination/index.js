@@ -30,7 +30,7 @@ function Pagination(props) {
 
   const onClickHandler = useCallback(page => {
     // Возвращаем функцию с замыканием на номер страницы
-    return (e) => props.onChange(page);
+    return () => props.onChange(page);
   }, [props.onChange]);
 
   // CSS классы по БЭМ
