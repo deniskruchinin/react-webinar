@@ -3,16 +3,11 @@
   padding: 20px 35px;
 }
 
-
-.ArticleEditCard-Description > div > textarea{
-  width: 100%;
-
-}
-.ArticleEditCard-Description {
-  margin: 20px 0;
-}
 .ArticleEditCard-Prop {
   margin: 20px 0;
 }
 
+.ArticleEditCard-Label {
+  margin-bottom: 5px;
+}
 

@@ -31,9 +31,12 @@ function ArticleEdit() {
     error: state.articleEdit.error
   }));
   const callbacks = {
-    changeArticle: useCallback((article) => store.articleEdit.changeArticle(article), [store]),
+    changeArticle: useCallback((article) => store.articleEdit.updateState({
+      data: {...article},
+    }), [store]),
     sendArticle: useCallback((article) => store.articleEdit.sendArticle(article), [store]),
   }
+  console.log(select.article,"article")
   return (
     <Layout head={<h1>{select?.header}</h1>}>
       <Header/>
@@ -43,7 +46,7 @@ function ArticleEdit() {
                          category={select.category}
                          article={select.article}
                          countries={select.countries}
-                         changeArticle={callbacks.changeArticle}/>
+                         onChange={callbacks.changeArticle}/>
       </Spinner>
     </Layout>
   );

@@ -7,8 +7,6 @@ class ArticleEditStore extends StoreModule {
    */
   initState() {
     return {
-      countries: [],
-      header: "",
       data: {},
       waiting: true,
       error: false
@@ -42,7 +40,6 @@ class ArticleEditStore extends StoreModule {
   }
 
   async sendArticle(article) {
-
     try {
       const response = await fetch(`/api/v1/articles/${article._id}`,
         {
@@ -69,10 +66,6 @@ class ArticleEditStore extends StoreModule {
     }
   }
 
-  changeArticle(editArticle) {
-    this.updateState({
-      data: {...editArticle},
-    });
-  }
+
 }
 export default ArticleEditStore;

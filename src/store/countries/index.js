@@ -12,7 +12,7 @@ class CountriesStore extends StoreModule {
   }
 
   /**
-   * Загрузка списка товаров
+   * Загрузка списка стран
    */
   async loadCountries() {
     this.updateState({
