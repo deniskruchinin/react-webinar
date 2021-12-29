@@ -17,7 +17,7 @@ function ArticleEdit() {
   // Начальная загрузка
   useInit(async () => {
     await store.articleEdit.load(params.id);
-    await store.category.loadCategory();
+    await store.category.load();
     await store.countries.loadCountries();
   }, [params.id]);
 

@@ -13,6 +13,7 @@ function Main() {
   // Загрузка тестовых данных при первом рендере
   useInit(async () => {
     await store.catalog.initParams();
+    await store.category.load()
   }, [], {backForward: true});
 
   return (

@@ -27,11 +27,6 @@ function CatalogFilter() {
     ]), [])
   }
 
-  useInit(async () => {
-    await store.category.loadCategory()
-    await store.catalog.setParams({category: '', page: 1})
-  }, []);
-
 
   const callbacks = {
     onSort: useCallback(sort => store.catalog.setParams({sort}), [store]),
