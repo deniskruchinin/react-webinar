@@ -18,7 +18,7 @@ function ArticleEdit() {
   useInit(async () => {
     await store.articleEdit.load(params.id);
     await store.category.load();
-    await store.countries.loadCountries();
+    await store.countries.load();
   }, [params.id]);
 
 
