@@ -9,11 +9,11 @@ function Select(props){
   const className = cn('Select');
 
   const onSelect = useCallback((e) => {
-    props.onChange(e.target.value,e.target.name);
+    props.onChange(e.target.value);
   }, [props.onChange])
 
   return (
-    <select name={props.name} className={className()} onChange={onSelect} value={props.value}>
+    <select className={className()} onChange={onSelect} value={props.value}>
       {props.options.map(item => (
         <option key={item.value} value={item.value} >{item.title}</option>
       ))}

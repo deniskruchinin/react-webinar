@@ -19,8 +19,8 @@ function ArticleEdit() {
     await store.articleEdit.load(params.id);
     await store.category.loadCategory();
     await store.countries.loadCountries();
-
   }, [params.id]);
+
 
   const select = useSelector(state => ({
     article: state.articleEdit.data,
@@ -31,12 +31,9 @@ function ArticleEdit() {
     error: state.articleEdit.error
   }));
   const callbacks = {
-    changeArticle: useCallback((article) => store.articleEdit.updateState({
-      data: {...article},
-    }), [store]),
+    changeArticle: useCallback((article) => store.articleEdit.updateState({data: {...article},}), [store]),
     sendArticle: useCallback((article) => store.articleEdit.sendArticle(article), [store]),
   }
-  console.log(select.article,"article")
   return (
     <Layout head={<h1>{select?.header}</h1>}>
       <Header/>

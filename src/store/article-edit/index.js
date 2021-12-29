@@ -19,8 +19,10 @@ class ArticleEditStore extends StoreModule {
   async load(id) {
     this.updateState({
       waiting: true,
-      data: {}
+      data: {},
+      error:false
     });
+
     try {
       const response = await fetch(`/api/v1/articles/${id}?fields=*,maidIn(title,code),category(title)`);
       const json = await response.json();
