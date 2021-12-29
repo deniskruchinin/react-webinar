@@ -10,14 +10,13 @@ function ArticleEditCard({error, article, onChange, countries, category, sendArt
   // CSS классы по БЭМ
   const className = cn('ArticleEditCard');
 
-
   const onChangeHandler = useCallback((name) => {
     return (value) => {
       const edit = {...article}
       edit[name]._id ? edit[name]._id = value : edit[name] = value
       return onChange(edit)
     }
-  },[onChange])
+  },[onChange,article])
 
   const send = () => {
     sendArticle(article)
